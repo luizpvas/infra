@@ -45,6 +45,9 @@ defmodule Infra.Kind.Factory do
 
       callback when is_function(callback) ->
         callback
+
+      struct_module when is_atom(struct_module) ->
+        Infra.Kind.InstanceOf.cast(struct_module)
     end
   end
 end

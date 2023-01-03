@@ -43,7 +43,17 @@ defmodule Infra.Kind.FactoryTest do
   end
 
   test "returns a kind for struct instances" do
-    assert Kind.Factory.for({:instance_of, Dummy}) |> is_function()
+    kind_1 = Kind.Factory.for({:instance_of, Dummy})
+    kind_2 = Kind.Factory.for(Dummy)
+
+    assert is_function(kind_1)
+    assert is_function(kind_2)
+
+    assert kind_1.(%Dummy{}) == {:ok, %Dummy{}}
+    assert kind_2.(%Dummy{}) == {:ok, %Dummy{}}
+
+    assert kind_1.(%{}) == {:error, :must_be_a_struct}
+    assert kind_2.(%{}) == {:error, :must_be_a_struct}
   end
 
   test "returns a kind for nilable subkind" do

@@ -30,7 +30,7 @@ defmodule Infra.Kind.Attributes do
     fn values ->
       list_of_casts =
         Enum.map(attributes, fn {key, attribute} ->
-          value = get_from_map_with_indifferent_access(values, key, attribute.default)
+          value = Infra.Map.get_with_indifferent_access(values, key, attribute.default)
 
           {key, attribute.cast.(value)}
         end)
@@ -51,9 +51,5 @@ defmodule Infra.Kind.Attributes do
           |> Infra.Result.error()
       end
     end
-  end
-
-  defp get_from_map_with_indifferent_access(map, key, default) do
-    Map.get(map, key, Map.get(map, Atom.to_string(key), default))
   end
 end

@@ -25,12 +25,6 @@ defmodule Infra.Kind.Factory do
       :use_case ->
         &Infra.Kind.UseCase.cast/1
 
-      :access ->
-        Infra.Kind.Access.cast([])
-
-      {:access, required_attributes} ->
-        Infra.Kind.Access.cast(required_attributes)
-
       {:instance_of, struct_module} ->
         Infra.Kind.InstanceOf.cast(struct_module)
 

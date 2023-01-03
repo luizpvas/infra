@@ -35,7 +35,9 @@ defmodule Infra.Kind.Attributes do
           {key, attribute.cast.(value)}
         end)
 
-      case Enum.filter(list_of_casts, &error?/1) do
+      cast_error? = fn {_key, result} -> Infra.Result.error?(result) end
+
+      case Enum.filter(list_of_casts, cast_error?) do
         [] ->
           list_of_casts
           |> Enum.map(fn {key, result} -> {key, Infra.Result.unwrap(result)} end)
@@ -54,6 +56,4 @@ defmodule Infra.Kind.Attributes do
   defp get_from_map_with_indifferent_access(map, key, default) do
     Map.get(map, key, Map.get(map, Atom.to_string(key), default))
   end
-
-  defp error?({_key, result}), do: Infra.Result.error?(result)
 end

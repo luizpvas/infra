@@ -11,7 +11,7 @@ defmodule Infra.UseCase do
       def call(input \\ %{}) do
         case __cast_attributes__().(input) do
           {:ok, validated_input} ->
-            Infra.UseCase.Steps.execute(
+            Infra.UseCase.Caller.call(
               use_case_module: __MODULE__,
               steps: __steps__(),
               input: validated_input

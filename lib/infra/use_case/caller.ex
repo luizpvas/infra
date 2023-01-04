@@ -13,6 +13,7 @@ defmodule Infra.UseCase.Caller do
           {:error, reason, details}
       end
     end)
+    |> Infra.UseCase.Output.verify()
   end
 
   defp run_step({:then, step}, use_case_module, input) do

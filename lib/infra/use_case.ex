@@ -5,6 +5,7 @@ defmodule Infra.UseCase do
       import Infra.UseCase.Steps
 
       Module.register_attribute(__MODULE__, :attributes, accumulate: true)
+      @before_compile unquote(__MODULE__)
 
       @behaviour Infra.UseCase.Behaviour
 
@@ -24,6 +25,25 @@ defmodule Infra.UseCase do
     end
   end
 
+  defmacro __before_compile__(_env) do
+    quote do
+      def __attributes__ do
+        @attributes
+        |> Enum.map(fn attribute -> {attribute[:name], attribute} end)
+        |> Enum.into(%{})
+      end
+
+      def __cast_attributes__ do
+        __attributes__()
+        |> Infra.Kind.Attributes.cast()
+      end
+
+      def __steps__ do
+        @steps || [{:then, :call!}]
+      end
+    end
+  end
+
   defmacro attribute(name, opts \\ []) do
     quote do
       Module.put_attribute(__MODULE__, :attributes, %{
@@ -36,18 +56,7 @@ defmodule Infra.UseCase do
 
   defmacro steps(do: block) do
     quote do
-      def __steps__, do: unquote(block)
-
-      def __attributes__ do
-        @attributes
-        |> Enum.map(fn attribute -> {attribute[:name], attribute} end)
-        |> Enum.into(%{})
-      end
-
-      def __cast_attributes__ do
-        __attributes__()
-        |> Infra.Kind.Attributes.cast()
-      end
+      Module.put_attribute(__MODULE__, :steps, unquote(block))
     end
   end
 end

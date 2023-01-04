@@ -44,7 +44,7 @@ defmodule Infra.Kind.BooleanTest do
 
   test "fails for other values" do
     for value <- ["foo", [], %{}, 10, -1] do
-      assert Kind.Boolean.cast(value) == {:error, :must_be_a_boolean}
+      assert Kind.Boolean.cast(value) == {:error, :must_be_boolean}
     end
   end
 end

@@ -11,9 +11,9 @@ defmodule Infra.Kind.UseCaseTest do
   end
 
   describe "failures" do
-    test "fails with :must_be_a_use_case if value is NOT a use case" do
+    test "fails with :must_be_use_case if value is NOT a use case" do
       for value <- [true, false, nil, "foo", Infra.Result, %{}] do
-        assert UseCase.cast(value) == {:error, :must_be_a_use_case}
+        assert UseCase.cast(value) == {:error, :must_be_use_case}
       end
     end
   end

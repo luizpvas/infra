@@ -2,7 +2,7 @@ defmodule Infra.Kind.Agreement do
   @moduledoc """
   Agreement is a boolean kind that only accepts trueish values, such as "true", "on" or "1".
 
-  It is most useful for making sure the user accepted something required, such as terms of service or privacy policy.
+  It is most useful for making sure the user checked a required checkbox, such as terms of service or privacy policy.
 
   ## Example
 

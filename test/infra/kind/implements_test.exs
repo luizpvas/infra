@@ -40,11 +40,11 @@ defmodule Infra.Kind.ImplementsTest do
   end
 
   describe "value is not a module" do
-    test "fails with :must_be_a_module" do
+    test "fails with :must_be_module" do
       implements_hello = Implements.cast(hello: 1)
 
       for value <- ["foo", nil, true, false, %{}, []] do
-        assert implements_hello.(value) == {:error, :must_be_a_module}
+        assert implements_hello.(value) == {:error, :must_be_module}
       end
     end
   end

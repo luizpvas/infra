@@ -1,8 +1,8 @@
 defmodule Infra.Kind.Factory do
   def for(kind) do
     case kind do
-      :id ->
-        &Infra.Kind.Id.cast/1
+      :numeric_id ->
+        &Infra.Kind.NumericId.cast/1
 
       :string ->
         &Infra.Kind.String.cast/1

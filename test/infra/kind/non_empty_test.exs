@@ -13,7 +13,7 @@ defmodule Infra.Kind.NonEmptyTest do
     test "fails with the subkind error if value is nil" do
       non_empty_string = NonEmpty.cast(:string)
 
-      assert non_empty_string.(nil) == {:error, :must_be_a_string}
+      assert non_empty_string.(nil) == {:error, :must_be_string}
     end
   end
 

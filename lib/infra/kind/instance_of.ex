@@ -5,7 +5,7 @@ defmodule Infra.Kind.InstanceOf do
         {:ok, value}
 
       _other_values ->
-        {:error, :must_be_a_struct}
+        {:error, :must_be_struct}
     end
   end
 end

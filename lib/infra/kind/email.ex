@@ -14,5 +14,5 @@ defmodule Infra.Kind.Email do
     end
   end
 
-  def cast(_), do: {:error, :must_be_a_string}
+  def cast(_), do: {:error, :must_be_string}
 end

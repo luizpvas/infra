@@ -13,7 +13,7 @@ defmodule Infra.Kind.FunctionTest do
   describe "value IS NOT a function" do
     test "returns a failure" do
       for invalid_value <- [true, nil, "foo", %{}, Infra.Kind.Function] do
-        assert Kind.Function.cast(invalid_value) == {:error, :must_be_a_function}
+        assert Kind.Function.cast(invalid_value) == {:error, :must_be_function}
       end
     end
   end

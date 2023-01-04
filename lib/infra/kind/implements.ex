@@ -12,11 +12,11 @@ defmodule Infra.Kind.Implements do
           end
         rescue
           UndefinedFunctionError ->
-            {:error, :must_be_a_module}
+            {:error, :must_be_module}
         end
 
       _value ->
-        {:error, :must_be_a_module}
+        {:error, :must_be_module}
     end
   end
 

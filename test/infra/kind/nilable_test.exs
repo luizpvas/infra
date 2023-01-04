@@ -11,7 +11,7 @@ defmodule Infra.Kind.NilableTest do
   describe "failures" do
     test "fails with the subkind error if value is not nil", %{nilable_email: nilable_email} do
       assert nilable_email.("bad-format") == {:error, :invalid_email_format}
-      assert nilable_email.(true) == {:error, :must_be_a_string}
+      assert nilable_email.(true) == {:error, :must_be_string}
     end
   end
 

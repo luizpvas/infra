@@ -10,8 +10,8 @@ defmodule Infra.Kind.FactoryTest do
     assert Kind.Factory.for(&Kind.Email.cast/1) == (&Kind.Email.cast/1)
   end
 
-  test "returns a kind for :id" do
-    assert Kind.Factory.for(:id) == (&Kind.Id.cast/1)
+  test "returns a kind for :numeric_id" do
+    assert Kind.Factory.for(:numeric_id) == (&Kind.NumericId.cast/1)
   end
 
   test "returns a kind for :string" do
@@ -52,8 +52,8 @@ defmodule Infra.Kind.FactoryTest do
     assert kind_1.(%Dummy{}) == {:ok, %Dummy{}}
     assert kind_2.(%Dummy{}) == {:ok, %Dummy{}}
 
-    assert kind_1.(%{}) == {:error, :must_be_a_struct}
-    assert kind_2.(%{}) == {:error, :must_be_a_struct}
+    assert kind_1.(%{}) == {:error, :must_be_struct}
+    assert kind_2.(%{}) == {:error, :must_be_struct}
   end
 
   test "returns a kind for nilable subkind" do
@@ -78,6 +78,6 @@ defmodule Infra.Kind.FactoryTest do
     assert is_function(cast_user)
 
     assert cast_user.(%{name: "Luiz"}) == {:ok, %{name: "Luiz"}}
-    assert cast_user.(%{name: nil}) == {:error, %{name: :must_be_a_string}}
+    assert cast_user.(%{name: nil}) == {:error, %{name: :must_be_string}}
   end
 end

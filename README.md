@@ -57,3 +57,21 @@ defmodule MyApp.Workspace.Membership.Invite do
   end
 end
 ```
+
+## Validation errors
+
+The following is a list of all kind errors returned from attribute validation:
+
+- `:must_be_accepted` returned from `:agreement`
+- `:must_be_boolean` returned from `:boolean`
+- `:must_be_string` returned from `:email`, `:password`, `:string`
+- `:invalid_email_format` returned from `:email`
+- `:must_be_function` returned from `:function`
+- `:must_be_module` returned from `{:implements, [do_something: 1]}`
+- `:module_does_not_implement_needed_functions` returned from `{:implements, [do_something: 1]}` (I don't like this one, and lacks context of what went wrong)
+- `:must_be_struct` returned from `{:instance_of, MyApp.SomeStruct}` or `MyApp.SomeStruct` directly.
+- `:must_be_list` returned from `{:list_of, kind}` where kind can be any supported kind.
+- `:must_not_be_empty` returned from `{:non_empty, kind}` where kind can be a `:string` or `:list_of` any kind.
+- `:must_be_numeric_id` returned from `:numeric_id`
+- `:weak_password` returned from `:password`
+- `:must_be_use_case` returned from `:use_case`

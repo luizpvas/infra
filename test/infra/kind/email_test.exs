@@ -3,9 +3,9 @@ defmodule Infra.Kind.EmailTest do
   alias Infra.Kind.Email
 
   describe "failures" do
-    test "fails with :must_be_a_string if value is not a string" do
+    test "fails with :must_be_string if value is not a string" do
       for value <- [10, true, false, nil, ["foo"], %{}] do
-        assert Email.cast(value) == {:error, :must_be_a_string}
+        assert Email.cast(value) == {:error, :must_be_string}
       end
     end
 

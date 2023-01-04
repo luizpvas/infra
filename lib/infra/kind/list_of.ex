@@ -14,7 +14,7 @@ defmodule Infra.Kind.ListOf do
         end
 
       _ ->
-        {:error, :must_be_a_list}
+        {:error, :must_be_list}
     end
   end
 end

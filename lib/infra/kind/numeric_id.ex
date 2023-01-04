@@ -1,9 +1,9 @@
-defmodule Infra.Kind.Id do
+defmodule Infra.Kind.NumericId do
   def cast(value) when is_integer(value) do
     if value > 0 do
       {:ok, value}
     else
-      {:error, :must_be_an_id}
+      {:error, :must_be_numeric_id}
     end
   end
 
@@ -13,9 +13,9 @@ defmodule Infra.Kind.Id do
         cast(num)
 
       _ ->
-        {:error, :must_be_an_id}
+        {:error, :must_be_numeric_id}
     end
   end
 
-  def cast(_), do: {:error, :must_be_an_id}
+  def cast(_), do: {:error, :must_be_numeric_id}
 end

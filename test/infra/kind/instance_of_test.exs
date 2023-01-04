@@ -21,14 +21,14 @@ defmodule Infra.Kind.InstanceOfTest do
       instance_of_dummy: instance_of_dummy
     } do
       for value <- [true, false, "foo", nil, ["foo"]] do
-        assert instance_of_dummy.(value) == {:error, :must_be_a_struct}
+        assert instance_of_dummy.(value) == {:error, :must_be_struct}
       end
     end
 
-    test "fails with :must_be_a_struct if value is an instance of another struct", %{
+    test "fails with :must_be_struct if value is an instance of another struct", %{
       instance_of_dummy: instance_of_dummy
     } do
-      assert instance_of_dummy.(%AnotherDummy{}) == {:error, :must_be_a_struct}
+      assert instance_of_dummy.(%AnotherDummy{}) == {:error, :must_be_struct}
     end
   end
 

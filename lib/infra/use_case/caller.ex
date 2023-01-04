@@ -1,11 +1,14 @@
 defmodule Infra.UseCase.Caller do
   def call(use_case_module: use_case_module, steps: steps, input: input) do
-    output = {:ok, :start, input}
+    output = {:ok, input}
 
     steps
     |> Infra.UseCase.Steps.wrap()
     |> Enum.reduce(output, fn step, output ->
       case output do
+        {:ok, input} ->
+          run_step(step, use_case_module, input)
+
         {:ok, _reason, input} ->
           run_step(step, use_case_module, input)
 
@@ -19,13 +22,13 @@ defmodule Infra.UseCase.Caller do
   defp run_step({:then, step}, use_case_module, input) do
     case apply(use_case_module, step, [input]) do
       :ok ->
-        {:ok, :cont, input}
+        {:ok, input}
 
       {:ok, reason} when is_atom(reason) ->
-        {:ok, :cont, input}
+        {:ok, reason, input}
 
       {:ok, new_data} when is_map(new_data) ->
-        {:ok, :cont, Map.merge(input, new_data)}
+        {:ok, Map.merge(input, new_data)}
 
       {:ok, reason, new_data} when is_atom(reason) and is_map(new_data) ->
         {:ok, reason, Map.merge(input, new_data)}

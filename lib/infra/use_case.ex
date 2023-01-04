@@ -6,7 +6,6 @@ defmodule Infra.UseCase do
 
       Module.register_attribute(__MODULE__, :attributes, accumulate: true)
 
-      # We to annotate with `@behaviour` so Mox knows the interface for the Dummy use-case is compatible.
       @behaviour Infra.UseCase.Behaviour
 
       def call(input) do
@@ -22,31 +21,10 @@ defmodule Infra.UseCase do
             {:error, :invalid_attributes, validation_errors}
         end
       end
-
-      def call!(input) do
-        result = call(input)
-
-        if Infra.Result.error?(result) do
-          IO.inspect(result)
-          raise "#{__MODULE__} called with `call!` failed."
-        end
-
-        result
-      end
     end
   end
 
   defmacro attribute(name, opts \\ []) do
-    quote do
-      Module.put_attribute(__MODULE__, :attributes, %{
-        name: unquote(name),
-        kind: unquote(opts[:kind]),
-        default: unquote(opts[:default])
-      })
-    end
-  end
-
-  defmacro dependency(name, opts \\ []) do
     quote do
       Module.put_attribute(__MODULE__, :attributes, %{
         name: unquote(name),

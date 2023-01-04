@@ -8,7 +8,7 @@ defmodule Infra.UseCase do
 
       @behaviour Infra.UseCase.Behaviour
 
-      def call(input) do
+      def call(input \\ %{}) do
         case __cast_attributes__().(input) do
           {:ok, validated_input} ->
             Infra.UseCase.Steps.execute(

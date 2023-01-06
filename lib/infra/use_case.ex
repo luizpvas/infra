@@ -5,6 +5,8 @@ defmodule Infra.UseCase do
       import Infra.UseCase.Steps
 
       Module.register_attribute(__MODULE__, :attributes, accumulate: true)
+      Module.put_attribute(__MODULE__, :steps, [{:then, :call!}])
+
       @before_compile unquote(__MODULE__)
 
       @behaviour Infra.UseCase.Behaviour
@@ -38,9 +40,7 @@ defmodule Infra.UseCase do
         |> Infra.Kind.Attributes.cast()
       end
 
-      def __steps__ do
-        @steps || [{:then, :call!}]
-      end
+      def __steps__, do: @steps
     end
   end
 

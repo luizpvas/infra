@@ -19,6 +19,9 @@ defmodule Infra.Kind.Factory do
       :password ->
         &Infra.Kind.Password.cast/1
 
+      :map ->
+        &Infra.Kind.Map.cast/1
+
       :function ->
         &Infra.Kind.Function.cast/1
 

@@ -34,6 +34,10 @@ defmodule Infra.Kind.FactoryTest do
     assert Kind.Factory.for(:password) == (&Kind.Password.cast/1)
   end
 
+  test "returns a kind for :map" do
+    assert Kind.Factory.for(:map) == (&Kind.Map.cast/1)
+  end
+
   test "returns a kind for :function" do
     assert Kind.Factory.for(:function) == (&Kind.Function.cast/1)
   end
